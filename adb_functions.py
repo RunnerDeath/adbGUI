@@ -11,6 +11,7 @@ def devices_list():
             result.append(data[i])
     return result
 
+
 def show_screen(device):
     try:
         subprocess.check_call(["screen\scrcpy.exe", "-s", f"{device}"])
