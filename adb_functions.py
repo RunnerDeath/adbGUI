@@ -14,7 +14,18 @@ def devices_list():
 
 def show_screen(device):
     try:
-        subprocess.check_call(["screen\scrcpy.exe", "-s", f"{device}"])
+        subprocess.check_call(f"screen\scrcpy.exe -s {device}")
     except Exception as ex:
         raise ex
+def install_apk(device, file):
+    result = []
+    try:
+        for i in range(0,len(device)):
+            result.append(subprocess.getoutput(f"adb -s {device[i]} install {file}"))
+    except Exception as ex:
+        raise ex
+    return result
 
+def app_list(device):
+    result = re.split("\t|\n", subprocess.getoutput(f'adb -s {device[0]} shell pm list packages | findstr "ru.tensor"'))
+    return result
