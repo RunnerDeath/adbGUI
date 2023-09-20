@@ -36,7 +36,8 @@ def app_list(device):
 
 def app_list_shown(device):
     result = []
-    app_list = re.split("\t|\n", subprocess.getoutput(f'adb -s {device[0]} shell pm list packages | findstr "ru.tensor"'))
+    app_list = re.split("\t|\n", subprocess.getoutput(
+        f'adb -s {device[0]} shell pm list packages | findstr "ru.tensor"'))
     apps = {
         "ru.tensor.sbis.retail":        "Касса Релиз",
         "ru.tensor.sbis.retail.debug":  "Касса Дебаг",
