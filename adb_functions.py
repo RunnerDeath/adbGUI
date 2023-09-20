@@ -17,6 +17,8 @@ def show_screen(device):
         subprocess.check_call(f"screen\scrcpy.exe -s {device}")
     except Exception as ex:
         raise ex
+
+
 def install_apk(device, file):
     result = []
     try:
@@ -26,6 +28,22 @@ def install_apk(device, file):
         raise ex
     return result
 
+
 def app_list(device):
     result = re.split("\t|\n", subprocess.getoutput(f'adb -s {device[0]} shell pm list packages | findstr "ru.tensor"'))
     return result
+
+
+def app_list_shown(device):
+    result = []
+    app_list = re.split("\t|\n", subprocess.getoutput(f'adb -s {device[0]} shell pm list packages | findstr "ru.tensor"'))
+    apps = {
+        "ru.tensor.sbis.retail":        "Касса Релиз",
+        "ru.tensor.sbis.retail.debug":  "Касса Дебаг",
+        "ru.tensor.sbis.presto":        "Presto Релиз",
+        "ru.tensor.sbis.presto.debug":  "Presto Дебаг",
+    }
+    for item in app_list:
+        result.append(apps.get(item))
+    return result
+
